@@ -1,4 +1,4 @@
-gll: build
+all: build
 
 .PHONY: build
 build:
