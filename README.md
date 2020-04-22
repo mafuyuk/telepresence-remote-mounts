@@ -28,4 +28,42 @@ $ telepresence \
 
 $ export CONTAINER_ID=$(docker ps --format "{{.ID}}" -f "name=frontend")
 $ docker exec -it $CONTAINER_ID /bin/telepresence_remote_mounts
+...Running...
+...Add Symlink...
+link:  /tmp/tel-k50p7t73/fs/etc/nginx/nginx.conf
+mount:  /etc/nginx/nginx.conf
+...Add Symlink...
+link:  /tmp/tel-k50p7t73/fs/etc/nginx/conf.d
+mount:  /etc/nginx/conf.d
+...Add Symlink...
+link:  /tmp/tel-k50p7t73/fs/var/run/secrets/kubernetes.io/serviceaccount
+mount:  /var/run/secrets/kubernetes.io/serviceaccount
+...End...
+
+```
+
+### with local change
+When local and volume mounted, the creation of symbolic links by the tool at that location is skipped.
+```bash
+$ telepresence \
+    --context your-context \
+    --namespace your-namespace \
+    --swap-deployment your-deployment:your-container \
+    --docker-run --rm  -p 80:80 \
+    --name frontend \
+    --volume $GOPATH/bin/telepresence-remote-mounts:/bin/telepresence_remote_mounts \
+    --volume $(pwd)/configs/front-nginx/nginx.conf:/etc/nginx/nginx.conf \
+    nginx:latest
+
+$ export CONTAINER_ID=$(docker ps --format "{{.ID}}" -f "name=frontend")
+$ docker exec -it $CONTAINER_ID /bin/telepresence_remote_mounts
+...Running...
+unlinkat /etc/nginx/nginx.conf: device or resource busy
+...Add Symlink...
+link:  /tmp/tel-k50p7t73/fs/etc/nginx/conf.d
+mount:  /etc/nginx/conf.d
+...Add Symlink...
+link:  /tmp/tel-k50p7t73/fs/var/run/secrets/kubernetes.io/serviceaccount
+mount:  /var/run/secrets/kubernetes.io/serviceaccount
+...End...
 ```
