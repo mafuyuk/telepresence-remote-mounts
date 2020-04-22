@@ -1,4 +1,12 @@
 # telepresence-remote-mounts
+## DESCRIPTION
+In the local container created by Telepresence, mount path is not in the intended place as it is like this
+With this tool, you can achieve the expected behavior by putting a symbolic link on the intended path.
+
+> Volume support requires a small amount of work on your part. The root directory where all the volumes can be found will be set to the TELEPRESENCE_ROOT environment variable in the shell run by telepresence. You will then need to use that env variable as the root for volume paths you are opening.  
+> Telepresence will attempt to gather the mount points that exist in the remote pod and list them in the TELEPRESENCE_MOUNTS environment variable, separated by : characters. This allows automated discovery of remote volumes.
+https://www.telepresence.io/howto/volumes
+
 ##  INSTALLATION
 ### build
 ```bash
