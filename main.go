@@ -24,7 +24,7 @@ func main() {
 	}
 
 	for _, mount := range strings.Split(telepresenceMounts, ":") {
-		if IsExist(mount) {
+		if Exists(mount) {
 			if err := os.RemoveAll(mount); err != nil {
 				fmt.Println(err)
 				continue
@@ -47,11 +47,11 @@ func main() {
 	}
 }
 
-func IsExist(path string) bool {
+func Exists(path string) bool {
 	if _, err := os.Stat(path); err == nil {
-		// exist
+		// exists
 		return true
 	}
-	// not exist
+	// does not exist
 	return false
 }
