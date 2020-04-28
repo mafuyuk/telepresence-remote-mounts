@@ -10,7 +10,7 @@ https://www.telepresence.io/howto/volumes
 ##  INSTALLATION
 ### build
 ```bash
-$ git clone https://mafuyuk/telepresence-remote-mounts .
+$ git clone https://mfykmn/telepresence-remote-mounts .
 $ make
 $ cp bin/telepresence-remote-mounts $GOPATH/bin
 ```
